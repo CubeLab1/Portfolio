@@ -1,0 +1,63 @@
+[
+    {
+      "email": "test@example.com",
+      "site": "ExampleSite",
+      "date": "2022-01-01",
+      "details": "Passwords and email addresses leaked."
+    },
+    {
+      "email": "user@example.com",
+      "site": "AnotherSite",
+      "date": "2023-06-15",
+      "details": "Personal information and credit card details leaked."
+    },
+    {
+      "email": "admin@leakedsite.com",
+      "site": "LeakedSite",
+      "date": "2021-12-25",
+      "details": "Database of 10M users leaked, including passwords."
+    },
+    {
+      "email": "contact@mycoolapp.com",
+      "site": "MyCoolApp",
+      "date": "2020-08-11",
+      "details": "Usernames and hashed passwords leaked."
+    },
+    {
+      "email": "info@superstore.com",
+      "site": "SuperStore",
+      "date": "2019-03-19",
+      "details": "Customer data, including addresses and phone numbers, leaked."
+    },
+    {
+      "email": "support@fakenews.com",
+      "site": "FakeNews",
+      "date": "2021-09-09",
+      "details": "Email addresses leaked; no passwords affected."
+    },
+    {
+      "email": "sales@bigdealshop.com",
+      "site": "BigDealShop",
+      "date": "2022-04-04",
+      "details": "Order history and partial credit card data exposed."
+    },
+    {
+      "email": "admin@socialfun.com",
+      "site": "SocialFun",
+      "date": "2020-02-14",
+      "details": "Private messages and photos exposed to hackers."
+    },
+    {
+      "email": "alerts@banksecure.com",
+      "site": "BankSecure",
+      "date": "2018-11-30",
+      "details": "Account details and transaction history leaked."
+    },
+    {
+      "email": "hello@streamflix.com",
+      "site": "StreamFlix",
+      "date": "2021-07-20",
+      "details": "Streaming preferences and account passwords leaked."
+    }
+  ]
+  

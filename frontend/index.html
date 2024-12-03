@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Services</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Cybersecurity Services</h1>
+  </header>
+  <main>
+    <section id="password-generator">
+      <h2>Password Generator</h2>
+      <label>
+        Length:
+        <input type="number" id="length" value="12" min="6" max="128">
+      </label>
+      <label>
+        <input type="checkbox" id="useSymbols" checked> Use Symbols
+      </label>
+      <label>
+        <input type="checkbox" id="useNumbers" checked> Use Numbers
+      </label>
+      <label>
+        <input type="checkbox" id="useUppercase" checked> Use Uppercase
+      </label>
+      <button onclick="generatePassword()">Generate Password</button>
+      <p id="generated-password"></p>
+    </section>
+
+    <section id="password-tester">
+      <h2>Password Tester</h2>
+      <input type="text" id="test-password" placeholder="Enter a password">
+      <button onclick="testPassword()">Test Password</button>
+      <p id="password-strength"></p>
+    </section>
+
+    <section id="data-breach-checker">
+      <h2>Data Breach Checker</h2>
+      <input type="email" id="email" placeholder="Enter an email">
+      <button onclick="checkBreach()">Check Breach</button>
+      <p id="breach-result"></p>
+    </section>
+
+    <section id="hash-generator">
+      <h2>Hash Generator</h2>
+      <input type="text" id="hash-input" placeholder="Enter text to hash">
+      <select id="hash-algorithm">
+        <option value="sha256">SHA-256</option>
+        <option value="sha384">SHA-384</option>
+        <option value="sha512">SHA-512</option>
+        <option value="md5">MD5</option>
+      </select>
+      <button onclick="generateHash()">Generate Hash</button>
+      <p id="hash-result"></p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
