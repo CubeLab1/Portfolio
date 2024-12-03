@@ -1,6 +1,9 @@
 import { createHash } from 'crypto';
 
 export default function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); // Allow specific methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); 
   if (req.method === 'POST') {
     const { input, algorithm = 'sha256' } = req.body;
 

@@ -1,6 +1,9 @@
 import zxcvbn from 'zxcvbn';
 
 export default function handler(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); // Allow specific methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); 
   if (req.method === 'POST') {
     const { password } = req.body;
 
