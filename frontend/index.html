@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cybersecurity Services</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
   <header>
     <h1>Cybersecurity Services</h1>
   </header>
   <main>
+    <!-- Password Generator -->
     <section id="password-generator">
       <h2>Password Generator</h2>
       <label>
@@ -31,6 +31,7 @@
       <p id="generated-password"></p>
     </section>
 
+    <!-- Password Tester -->
     <section id="password-tester">
       <h2>Password Tester</h2>
       <input type="text" id="test-password" placeholder="Enter a password">
@@ -38,6 +39,7 @@
       <p id="password-strength"></p>
     </section>
 
+    <!-- Data Breach Checker -->
     <section id="data-breach-checker">
       <h2>Data Breach Checker</h2>
       <input type="email" id="email" placeholder="Enter an email">
@@ -45,6 +47,7 @@
       <p id="breach-result"></p>
     </section>
 
+    <!-- Hash Generator -->
     <section id="hash-generator">
       <h2>Hash Generator</h2>
       <input type="text" id="hash-input" placeholder="Enter text to hash">
@@ -58,6 +61,93 @@
       <p id="hash-result"></p>
     </section>
   </main>
-  <script src="script.js"></script>
+
+  <script>
+    const API_BASE = "https://portfolio-nykub9g27-robs-projects-d8826559.vercel.app/api";
+
+    // Password Generator
+    async function generatePassword() {
+      const length = document.getElementById('length').value;
+      const useSymbols = document.getElementById('useSymbols').checked;
+      const useNumbers = document.getElementById('useNumbers').checked;
+      const useUppercase = document.getElementById('useUppercase').checked;
+
+      try {
+        const response = await fetch(`${API_BASE}/password-generator`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ length, useSymbols, useNumbers, useUppercase }),
+        });
+
+        const data = await response.json();
+        document.getElementById('generated-password').textContent = `Generated Password: ${data.password}`;
+      } catch (error) {
+        document.getElementById('generated-password').textContent = 'Error generating password.';
+        console.error(error);
+      }
+    }
+
+    // Password Tester
+    async function testPassword() {
+      const password = document.getElementById('test-password').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/password-tester`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password }),
+        });
+
+        const data = await response.json();
+        document.getElementById('password-strength').textContent = `Strength: ${data.strength}`;
+      } catch (error) {
+        document.getElementById('password-strength').textContent = 'Error testing password.';
+        console.error(error);
+      }
+    }
+
+    // Data Breach Checker
+    async function checkBreach() {
+      const email = document.getElementById('email').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/data-breach-checker`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        if (data.breached) {
+          document.getElementById('breach-result').textContent = `Breach found: ${JSON.stringify(data.breaches)}`;
+        } else {
+          document.getElementById('breach-result').textContent = 'No breaches found.';
+        }
+      } catch (error) {
+        document.getElementById('breach-result').textContent = 'Error checking breach.';
+        console.error(error);
+      }
+    }
+
+    // Hash Generator
+    async function generateHash() {
+      const input = document.getElementById('hash-input').value;
+      const algorithm = document.getElementById('hash-algorithm').value;
+
+      try {
+        const response = await fetch(`${API_BASE}/hash-generator`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ input, algorithm }),
+        });
+
+        const data = await response.json();
+        document.getElementById('hash-result').textContent = `Generated Hash: ${data.hash}`;
+      } catch (error) {
+        document.getElementById('hash-result').textContent = 'Error generating hash.';
+        console.error(error);
+      }
+    }
+  </script>
 </body>
 </html>
