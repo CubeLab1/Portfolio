@@ -1,25 +1,29 @@
-import zxcvbn from 'zxcvbn';
-
 export default function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); // Allow specific methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); 
-  if (req.method === 'POST') {
-    const { password } = req.body;
-
-    if (!password) {
-      return res.status(400).json({ error: 'Password is required' });
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+    if (req.method === 'OPTIONS') {
+      res.status(200).end();
+      return;
     }
-
-    const result = zxcvbn(password);
-
-    res.status(200).json({
-      strength: ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'][result.score],
-      score: result.score,
-      feedback: result.feedback.suggestions,
-    });
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+  
+    if (req.method === 'POST') {
+      const { password } = req.body;
+  
+      if (!password) {
+        return res.status(400).json({ error: 'Password is required' });
+      }
+  
+      const strength = password.length >= 12
+        ? 'Strong'
+        : password.length >= 8
+        ? 'Moderate'
+        : 'Weak';
+  
+      res.status(200).json({ strength });
+    } else {
+      res.status(405).json({ error: 'Method not allowed' });
+    }
   }
-}
+  

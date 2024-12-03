@@ -1,7 +1,16 @@
 export default function handler(req, res) {
+    // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); // Allow specific methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); 
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST'); // Allow methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow headers
+  
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+      res.status(200).end(); // Respond with 200 OK
+      return;
+    }
+  
+    // Handle POST requests
     if (req.method === 'POST') {
       const { length, useSymbols = true, useNumbers = true, useUppercase = true } = req.body;
   
@@ -23,8 +32,7 @@ export default function handler(req, res) {
   
       res.status(200).json({ password });
     } else {
-      res.setHeader('Allow', ['POST']);
-      res.status(405).end(`Method ${req.method} Not Allowed`);
+      res.status(405).json({ error: 'Method not allowed' });
     }
   }
   

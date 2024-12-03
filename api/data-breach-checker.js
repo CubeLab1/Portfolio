@@ -1,7 +1,13 @@
 export default function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS'); // Allow specific methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); 
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+    if (req.method === 'OPTIONS') {
+      res.status(200).end();
+      return;
+    }
+  
     if (req.method === 'POST') {
       const { email } = req.body;
   
@@ -10,13 +16,8 @@ export default function handler(req, res) {
         { email: 'user@example.com', site: 'AnotherSite', date: '2023-06-15' },
       ];
   
-      const results = breaches.filter((entry) => entry.email === email);
-  
-      if (results.length > 0) {
-        res.status(200).json({ breached: true, breaches: results });
-      } else {
-        res.status(200).json({ breached: false, breaches: [] });
-      }
+      const result = breaches.filter((entry) => entry.email === email);
+      res.status(200).json({ breached: result.length > 0, breaches: result });
     } else {
       res.status(405).json({ error: 'Method not allowed' });
     }
