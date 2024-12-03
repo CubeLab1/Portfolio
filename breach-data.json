@@ -6,6 +6,12 @@
       "details": "Passwords and email addresses leaked."
     },
     {
+      "email": "Jesus@gmail.com",
+      "site": "Purchase NOW",
+      "date": "2023-06-15",
+      "details": "Personal information and credit card details leaked."
+    },
+    {
       "email": "user@example.com",
       "site": "AnotherSite",
       "date": "2023-06-15",

@@ -1,23 +1,41 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import { generatePassword } from './api/password-generator.js';
-import { testPassword } from './api/password-tester.js';
-import { checkDataBreach } from './api/data-breach-checker.js';
-import { generateHash } from './api/hash-generator.js';
+import cors from 'cors';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Middleware
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
-// Routes
-app.post('/api/password-generator', generatePassword);
-app.post('/api/password-tester', testPassword);
-app.post('/api/data-breach-checker', checkDataBreach);
-app.post('/api/hash-generator', generateHash);
+// Password Generator API
+app.post('/api/password-generator', (req, res) => {
+  const { length = 12, useSymbols = true, useNumbers = true, useUppercase = true } = req.body;
 
-// Start server
+  if (!length || length < 6 || length > 128) {
+    return res.status(400).json({ error: 'Invalid password length. Must be between 6 and 128.' });
+  }
+
+  const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+  const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numbers = '0123456789';
+  const symbols = '!@#$%^&*()_+[]{}<>?';
+
+  let charSet = lowerCase;
+  if (useSymbols) charSet += symbols;
+  if (useNumbers) charSet += numbers;
+  if (useUppercase) charSet += upperCase;
+
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charSet.length);
+    password += charSet[randomIndex];
+  }
+
+  res.status(200).json({ password });
+});
+
+// Start Server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Password Generator API running on http://localhost:${PORT}`);
 });

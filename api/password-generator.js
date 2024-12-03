@@ -10,7 +10,7 @@ export default function handler(req, res) {
       return;
     }
   
-    // Handle POST requests
+    // Handle POST requestsi
     if (req.method === 'POST') {
       const { length, useSymbols = true, useNumbers = true, useUppercase = true } = req.body;
   

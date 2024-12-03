@@ -4,51 +4,201 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cybersecurity Services</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      padding: 20px;
+    }
+    .card {
+      background-color: white;
+      width: 300px;
+      height: 150px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 1;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    .card:hover .tooltip {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card h2 {
+      margin: 0;
+      z-index: 2;
+    }
+    /* Tooltip Styles */
+    .tooltip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 0 0 10px 10px;
+      opacity: 0;
+      transform: translateY(100%);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      opacity: 1;
+    }
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+    .modal-content .close-modal {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal-content .close-modal:hover {
+      background-color: #c82333;
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>Cybersecurity Services</h1>
+    <p>Explore our tools to enhance your online security.</p>
   </header>
-  <main>
-    <!-- Password Generator -->
-    <section id="password-generator">
+  <div class="container">
+    <div class="card" onclick="openModal('password-generator-modal')">
       <h2>Password Generator</h2>
-      <label>
-        Length:
-        <input type="number" id="length" value="12" min="6" max="128">
-      </label>
-      <label>
-        <input type="checkbox" id="useSymbols" checked> Use Symbols
-      </label>
-      <label>
-        <input type="checkbox" id="useNumbers" checked> Use Numbers
-      </label>
-      <label>
-        <input type="checkbox" id="useUppercase" checked> Use Uppercase
-      </label>
-      <button onclick="generatePassword()">Generate Password</button>
-      <p id="generated-password"></p>
-    </section>
+      <div class="tooltip">
+        Create strong, random passwords to protect your accounts from brute-force attacks.
+      </div>
+    </div>
+    <div class="card" onclick="openModal('password-tester-modal')">
+      <h2>Password Tester</h2>
+      <div class="tooltip">
+        Test your password strength to ensure it is hard for attackers to guess.
+      </div>
+    </div>
+    <div class="card" onclick="openModal('data-breach-modal')">
+      <h2>Data Breach Checker</h2>
+      <div class="tooltip">
+        Check if your email or personal data has been leaked in a breach.
+      </div>
+    </div>
+    <div class="card" onclick="openModal('hash-generator-modal')">
+      <h2>Hash Generator</h2>
+      <div class="tooltip">
+        Create one-way hashes to securely store passwords or verify data integrity.
+      </div>
+    </div>
+  </div>
 
-    <!-- Password Tester -->
-    <section id="password-tester">
+  <!-- Password Generator Modal -->
+<!-- Password Generator Modal -->
+<div id="password-generator-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Password Generator</h2>
+    <label>
+      Length:
+      <input type="number" id="length" value="12" min="6" max="128">
+    </label>
+    <br>
+    <label>
+      <input type="checkbox" id="useSymbols" checked> Use Symbols
+    </label>
+    <label>
+      <input type="checkbox" id="useNumbers" checked> Use Numbers
+    </label>
+    <label>
+      <input type="checkbox" id="useUppercase" checked> Use Uppercase
+    </label>
+    <br>
+    <button onclick="generatePassword()">Generate Password</button>
+    <p id="generated-password"></p>
+    <button class="close-modal" onclick="closeModal('password-generator-modal')">Close</button>
+  </div>
+</div>
+
+
+
+  <!-- Password Tester Modal -->
+  <div id="password-tester-modal" class="modal">
+    <div class="modal-content">
       <h2>Password Tester</h2>
       <input type="text" id="test-password" placeholder="Enter a password">
       <button onclick="testPassword()">Test Password</button>
       <p id="password-strength"></p>
-    </section>
+      <button class="close-modal" onclick="closeModal('password-tester-modal')">Close</button>
+    </div>
+  </div>
 
-    <!-- Data Breach Checker -->
-    <section id="data-breach-checker">
+  <!-- Data Breach Checker Modal -->
+  <div id="data-breach-modal" class="modal">
+    <div class="modal-content">
       <h2>Data Breach Checker</h2>
       <input type="email" id="email" placeholder="Enter an email">
       <button onclick="checkBreach()">Check Breach</button>
       <p id="breach-result"></p>
-    </section>
+      <button class="close-modal" onclick="closeModal('data-breach-modal')">Close</button>
+    </div>
+  </div>
 
-    <!-- Hash Generator -->
-    <section id="hash-generator">
+  <!-- Hash Generator Modal -->
+  <div id="hash-generator-modal" class="modal">
+    <div class="modal-content">
       <h2>Hash Generator</h2>
       <input type="text" id="hash-input" placeholder="Enter text to hash">
       <select id="hash-algorithm">
@@ -59,35 +209,43 @@
       </select>
       <button onclick="generateHash()">Generate Hash</button>
       <p id="hash-result"></p>
-    </section>
-  </main>
+      <button class="close-modal" onclick="closeModal('hash-generator-modal')">Close</button>
+    </div>
+  </div>
 
   <script>
-    const API_BASE = "https://portfolio-khaki-xi-62.vercel.app/api"; 
+    const API_BASE = "https://portfolio-khaki-xi-62.vercel.app/api";
 
-    // Password Generator
-    async function generatePassword() {
-      const length = document.getElementById('length').value;
-      const useSymbols = document.getElementById('useSymbols').checked;
-      const useNumbers = document.getElementById('useNumbers').checked;
-      const useUppercase = document.getElementById('useUppercase').checked;
-
-      try {
-        const response = await fetch(`${API_BASE}/password-generator`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ length, useSymbols, useNumbers, useUppercase }),
-        });
-
-        const data = await response.json();
-        document.getElementById('generated-password').textContent = `Generated Password: ${data.password}`;
-      } catch (error) {
-        document.getElementById('generated-password').textContent = 'Error generating password.';
-        console.error(error);
-      }
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = 'flex';
     }
 
-    // Password Tester
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    async function generatePassword() {
+  const length = document.getElementById('length').value;
+  const useSymbols = document.getElementById('useSymbols').checked;
+  const useNumbers = document.getElementById('useNumbers').checked;
+  const useUppercase = document.getElementById('useUppercase').checked;
+
+  try {
+    const response = await fetch('http://localhost:3001/api/password-generator', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ length, useSymbols, useNumbers, useUppercase }),
+    });
+
+    const data = await response.json();
+    document.getElementById('generated-password').textContent = `Generated Password: ${data.password}`;
+  } catch (error) {
+    document.getElementById('generated-password').textContent = 'Error generating password.';
+    console.error(error);
+  }
+}
+
+
     async function testPassword() {
       const password = document.getElementById('test-password').value;
 
@@ -106,7 +264,6 @@
       }
     }
 
-    // Data Breach Checker
     async function checkBreach() {
       const email = document.getElementById('email').value;
 
@@ -129,7 +286,6 @@
       }
     }
 
-    // Hash Generator
     async function generateHash() {
       const input = document.getElementById('hash-input').value;
       const algorithm = document.getElementById('hash-algorithm').value;

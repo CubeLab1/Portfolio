@@ -14,6 +14,7 @@ export default function handler(req, res) {
       const breaches = [
         { email: 'test@example.com', site: 'ExampleSite', date: '2022-01-01' },
         { email: 'user@example.com', site: 'AnotherSite', date: '2023-06-15' },
+        { email: 'jesus@oregonstate.com', site: 'Education plus', date: '2023-06-15' },
       ];
   
       const result = breaches.filter((entry) => entry.email === email);
